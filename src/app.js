@@ -5,6 +5,7 @@ import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import recordRoutes from "./routes/record.routes.js";
+import { errorHandler } from "./middleware/error.middleware.js";
 
 dotenv.config();
 
@@ -12,11 +13,12 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(errorHandler);
 
 // DB Connection
 connectDB();
 
-
+// routes
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);

@@ -25,7 +25,14 @@ export const createRecord = async (req, res) => {
 
 export const getRecords = async (req, res) => {
   try {
-    const { type, category, startDate, endDate } = req.query;
+    const {
+      page = 1,
+      limit = 10,
+      type,
+      category,
+      startDate,
+      endDate,
+    } = req.query;
 
     let filter = {};
 
@@ -39,9 +46,27 @@ export const getRecords = async (req, res) => {
       };
     }
 
-    const records = await Record.find(filter).sort({ date: -1 });
+    const skip = (page - 1) * limit;
 
-    res.json(records);
+    // Get total count (important for pagination)
+    const totalRecords = await Record.countDocuments(filter);
+
+    // Fetch paginated data
+    const records = await Record.find(filter)
+      .sort({ date: -1 })
+      .skip(skip)
+      .limit(Number(limit));
+
+    res.json({
+      success: true,
+      pagination: {
+        total: totalRecords,
+        page: Number(page),
+        limit: Number(limit),
+        totalPages: Math.ceil(totalRecords / limit),
+      },
+      data: records,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
