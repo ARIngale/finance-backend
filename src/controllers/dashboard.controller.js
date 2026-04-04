@@ -25,7 +25,7 @@ export const getDashboard = async (req, res) => {
     const categoryWise = await Record.aggregate([
       {
         $group: {
-          _id: "$category",
+          _id: { category: "$category", type: "$type" },
           total: { $sum: "$amount" },
         },
       },
@@ -36,12 +36,27 @@ export const getDashboard = async (req, res) => {
       .sort({ date: -1 })
       .limit(5);
 
+    const monthlyTrend = await Record.aggregate([
+    {
+      $group: {
+        _id: {
+          year: { $year: "$date" },
+          month: { $month: "$date" },
+          type: "$type",
+        },
+        total: { $sum: "$amount" },
+      },
+    },
+    { $sort: { "_id.year": 1, "_id.month": 1 } },
+  ]);
+
     res.json({
       totalIncome,
       totalExpense,
       netBalance,
       categoryWise,
       recentTransactions,
+      monthlyTrend,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
