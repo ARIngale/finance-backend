@@ -9,16 +9,28 @@ import {
 import { protect } from "../middleware/auth.middleware.js";
 import { authorizeRoles } from "../middleware/role.middleware.js";
 
+import { createRecordValidation } from "../validations/record.validation.js";
+import { validate } from "../middleware/validation.middleware.js";
+
 const router = express.Router();
 
-// Admin only
-router.post("/", protect, authorizeRoles("admin"), createRecord);
+// Create record (Admin only + validation)
+router.post(
+  "/",
+  protect,
+  authorizeRoles("admin"),
+  createRecordValidation,
+  validate,
+  createRecord
+);
 
-// Admin + Analyst
+// Get records (Admin + Analyst)
 router.get("/", protect, authorizeRoles("admin", "analyst"), getRecords);
 
-// Admin only
+// Update record (Admin only)
 router.put("/:id", protect, authorizeRoles("admin"), updateRecord);
+
+// Delete record (Admin only)
 router.delete("/:id", protect, authorizeRoles("admin"), deleteRecord);
 
 export default router;
