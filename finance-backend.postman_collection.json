@@ -1,0 +1,1267 @@
+{
+  "info": {
+    "_postman_id": "55a9c5a1-6ac5-4288-bd4c-0f0be791888c",
+    "name": "Finance Backend API",
+    "description": "Finance Backend API\n\nThis API provides role-based access to financial records and analytics.\n\nRoles:\n\n- Admin → Full access\n    \n- Analyst → Read records + analytics\n    \n- Viewer → Dashboard only\n    \n\nAuthentication:  \nUse JWT token in header:  \nAuthorization: Bearer",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40544039"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Admin login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"admin123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://finance-backend-gi5m.onrender.com/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "finance-backend-gi5m",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login user and get JWT token.\n\nUse this token in Authorization header:  \nBearer"
+          },
+          "response": [
+            {
+              "name": "Admin login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"admin123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-backend-gi5m.onrender.com/api/auth/login",
+                  "protocol": "https",
+                  "host": [
+                    "finance-backend-gi5m",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 04 Apr 2026 14:35:49 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "249"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"12f-nSUvhZflhDke/MAWA1SwclaSIfA\""
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "a6b3f1ae-0040-43fe"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "9e710aaa7d0ae14c-IAD"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Login successful\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Y2ZjODE0YTk3MGIzYmZiMzBlMGVkOCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTMxMzM0OCwiZXhwIjoxNzc1OTE4MTQ4fQ.WbhkuZG7JCnYXZM2k7LW9cSI8HfiSABJhBNgweV7ZvQ\",\n    \"user\": {\n        \"id\": \"69cfc814a970b3bfb30e0ed8\",\n        \"name\": \"Admin\",\n        \"role\": \"admin\"\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create User Analyst",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Y2ZjODE0YTk3MGIzYmZiMzBlMGVkOCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTMxMzM0OCwiZXhwIjoxNzc1OTE4MTQ4fQ.WbhkuZG7JCnYXZM2k7LW9cSI8HfiSABJhBNgweV7ZvQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Analyst\",\r\n  \"email\": \"analyst@test.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"analyst\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://finance-backend-gi5m.onrender.com/api/users",
+              "protocol": "https",
+              "host": [
+                "finance-backend-gi5m",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "description": "Create new user (Admin only) use the token of admin in this"
+          },
+          "response": [
+            {
+              "name": "Create User Analyst",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Analyst\",\r\n  \"email\": \"analyst@test.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"analyst\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-backend-gi5m.onrender.com/api/users",
+                  "protocol": "https",
+                  "host": [
+                    "finance-backend-gi5m",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 04 Apr 2026 16:30:05 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "227"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"13e-nsuDCP7SV+9/Qm2wttKa7oQ0lL8\""
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "8d25398b-65b7-4bab"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "9e71b20f1eb207e0-IAD"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"User created successfully\",\n    \"user\": {\n        \"name\": \"Analyst\",\n        \"email\": \"analyst@test.com\",\n        \"password\": \"$2b$10$qaNNNhblj0EVDr6tmSsTq.jFpmgwJiDMEIIJsMuids8EfsxkWcdU6\",\n        \"role\": \"analyst\",\n        \"isActive\": true,\n        \"_id\": \"69d13c8c2a1229c6d584c4be\",\n        \"createdAt\": \"2026-04-04T16:30:04.983Z\",\n        \"updatedAt\": \"2026-04-04T16:30:04.983Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create User Viewer",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Y2ZjODE0YTk3MGIzYmZiMzBlMGVkOCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTMxMzM0OCwiZXhwIjoxNzc1OTE4MTQ4fQ.WbhkuZG7JCnYXZM2k7LW9cSI8HfiSABJhBNgweV7ZvQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Viewer\",\r\n  \"email\": \"viewer@test.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"viewer\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://finance-backend-gi5m.onrender.com/api/users",
+              "protocol": "https",
+              "host": [
+                "finance-backend-gi5m",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create User Viewer",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Viewer\",\r\n  \"email\": \"viewer@test.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"viewer\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-backend-gi5m.onrender.com/api/users",
+                  "protocol": "https",
+                  "host": [
+                    "finance-backend-gi5m",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 04 Apr 2026 16:33:49 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "223"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"13b-qS2XZs8i5sK6mU87pZqrXdQRzQY\""
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "4e3a50f0-0760-476a"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "9e71b787dde53b3b-IAD"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"User created successfully\",\n    \"user\": {\n        \"name\": \"Viewer\",\n        \"email\": \"viewer@test.com\",\n        \"password\": \"$2b$10$6RSeHcl6w5UmUvLfwkMME.IXbiDnyEYpHv5C373SRvIrvY1Ibi.Ju\",\n        \"role\": \"viewer\",\n        \"isActive\": true,\n        \"_id\": \"69d13d6d2a1229c6d584c4c4\",\n        \"createdAt\": \"2026-04-04T16:33:49.056Z\",\n        \"updatedAt\": \"2026-04-04T16:33:49.056Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Records",
+      "item": [
+        {
+          "name": "Create Record",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Y2ZjODE0YTk3MGIzYmZiMzBlMGVkOCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTMxMzM0OCwiZXhwIjoxNzc1OTE4MTQ4fQ.WbhkuZG7JCnYXZM2k7LW9cSI8HfiSABJhBNgweV7ZvQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"amount\": 5000,\r\n  \"type\": \"income\",\r\n  \"category\": \"salary\",\r\n  \"note\": \"monthly salary\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://finance-backend-gi5m.onrender.com/api/records",
+              "protocol": "https",
+              "host": [
+                "finance-backend-gi5m",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "records"
+              ]
+            },
+            "description": "Create a new financial record.  \nOnly Admin can perform this action."
+          },
+          "response": [
+            {
+              "name": "Create Record",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"amount\": 5000,\r\n  \"type\": \"income\",\r\n  \"category\": \"salary\",\r\n  \"note\": \"monthly salary\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-backend-gi5m.onrender.com/api/records",
+                  "protocol": "https",
+                  "host": [
+                    "finance-backend-gi5m",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "records"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 04 Apr 2026 16:35:40 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "160"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"10b-tnGSAc/FMZKFs6bE5oYWHY8b92k\""
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "0fb01145-d782-4466"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "9e71ba3f5ee3a62c-IAD"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"amount\": 5000,\n    \"type\": \"income\",\n    \"category\": \"salary\",\n    \"date\": \"2026-04-04T16:35:40.266Z\",\n    \"note\": \"monthly salary\",\n    \"createdBy\": \"69cfc814a970b3bfb30e0ed8\",\n    \"_id\": \"69d13ddc2a1229c6d584c4c8\",\n    \"createdAt\": \"2026-04-04T16:35:40.266Z\",\n    \"updatedAt\": \"2026-04-04T16:35:40.266Z\",\n    \"__v\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Record",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Y2ZjODE0YTk3MGIzYmZiMzBlMGVkOCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTMxMzM0OCwiZXhwIjoxNzc1OTE4MTQ4fQ.WbhkuZG7JCnYXZM2k7LW9cSI8HfiSABJhBNgweV7ZvQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://finance-backend-gi5m.onrender.com/api/records?page=1&limit=5&type=income&category=salary",
+              "protocol": "https",
+              "host": [
+                "finance-backend-gi5m",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "records"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "limit",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "type",
+                  "value": "income",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "salary",
+                  "type": "text"
+                }
+              ]
+            },
+            "description": "Fetch records with optional filtering and pagination.\n\nFilters:\n\n- type: income / expense\n    \n- category: string"
+          },
+          "response": [
+            {
+              "name": "Get Record",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-backend-gi5m.onrender.com/api/records?page=1&limit=5&type=income&category=salary",
+                  "protocol": "https",
+                  "host": [
+                    "finance-backend-gi5m",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "records"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "type",
+                      "value": "income"
+                    },
+                    {
+                      "key": "category",
+                      "value": "salary"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 04 Apr 2026 16:42:48 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "261"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"26c-8YyD+G/gQApb1v39srRyDfe/IEg\""
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "a068331f-8dcd-4542"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "9e71c4afc837e5c3-IAD"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"pagination\": {\n        \"total\": 2,\n        \"page\": 1,\n        \"limit\": 5,\n        \"totalPages\": 1\n    },\n    \"data\": [\n        {\n            \"_id\": \"69d13ddc2a1229c6d584c4c8\",\n            \"amount\": 5000,\n            \"type\": \"income\",\n            \"category\": \"salary\",\n            \"date\": \"2026-04-04T16:35:40.266Z\",\n            \"note\": \"monthly salary\",\n            \"createdBy\": \"69cfc814a970b3bfb30e0ed8\",\n            \"createdAt\": \"2026-04-04T16:35:40.266Z\",\n            \"updatedAt\": \"2026-04-04T16:35:40.266Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"69d0906dd8114a17238f8b5c\",\n            \"amount\": 5000,\n            \"type\": \"income\",\n            \"category\": \"salary\",\n            \"date\": \"2026-04-04T04:15:41.234Z\",\n            \"note\": \"Monthly salary\",\n            \"createdBy\": \"69cfc814a970b3bfb30e0ed8\",\n            \"createdAt\": \"2026-04-04T04:15:41.238Z\",\n            \"updatedAt\": \"2026-04-04T04:15:41.238Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Put Record",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Y2ZjODE0YTk3MGIzYmZiMzBlMGVkOCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTMxMzM0OCwiZXhwIjoxNzc1OTE4MTQ4fQ.WbhkuZG7JCnYXZM2k7LW9cSI8HfiSABJhBNgweV7ZvQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"amount\": 6000,\r\n  \"category\": \"freelance\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://finance-backend-gi5m.onrender.com/api/records/69d140682a1229c6d584c4d1",
+              "protocol": "https",
+              "host": [
+                "finance-backend-gi5m",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "records",
+                "69d140682a1229c6d584c4d1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Put Record",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"amount\": 6000,\r\n  \"category\": \"freelance\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-backend-gi5m.onrender.com/api/records/69d140682a1229c6d584c4d1",
+                  "protocol": "https",
+                  "host": [
+                    "finance-backend-gi5m",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "records",
+                    "69d140682a1229c6d584c4d1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 04 Apr 2026 16:47:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "175"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"10f-qG3zxeACIFiWFQb8Zcag+wRwhDM\""
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "98183eee-e5b1-48e2"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "9e71cc3d78adc94f-IAD"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"_id\": \"69d140682a1229c6d584c4d1\",\n    \"amount\": 6000,\n    \"type\": \"income\",\n    \"category\": \"freelance\",\n    \"date\": \"2026-04-04T16:46:32.912Z\",\n    \"note\": \"one time salary\",\n    \"createdBy\": \"69cfc814a970b3bfb30e0ed8\",\n    \"createdAt\": \"2026-04-04T16:46:32.913Z\",\n    \"updatedAt\": \"2026-04-04T16:47:57.235Z\",\n    \"__v\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Record",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Y2ZjODE0YTk3MGIzYmZiMzBlMGVkOCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTMxMzM0OCwiZXhwIjoxNzc1OTE4MTQ4fQ.WbhkuZG7JCnYXZM2k7LW9cSI8HfiSABJhBNgweV7ZvQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://finance-backend-gi5m.onrender.com/api/records/69d13ddc2a1229c6d584c4c8",
+              "protocol": "https",
+              "host": [
+                "finance-backend-gi5m",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "records",
+                "69d13ddc2a1229c6d584c4c8"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete Record",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-backend-gi5m.onrender.com/api/records/69d13ddc2a1229c6d584c4c8",
+                  "protocol": "https",
+                  "host": [
+                    "finance-backend-gi5m",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "records",
+                    "69d13ddc2a1229c6d584c4c8"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 04 Apr 2026 16:49:21 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "32"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"1c-lktv5sTMdg4jodjiXzfWdljN7k0\""
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "0effece7-8489-41b1"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "9e71ce485b9ac5b2-IAD"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Record deleted\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Dashboard",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Y2ZjODE0YTk3MGIzYmZiMzBlMGVkOCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTMxMzM0OCwiZXhwIjoxNzc1OTE4MTQ4fQ.WbhkuZG7JCnYXZM2k7LW9cSI8HfiSABJhBNgweV7ZvQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://finance-backend-gi5m.onrender.com/api/dashboard",
+              "protocol": "https",
+              "host": [
+                "finance-backend-gi5m",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "dashboard"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Dashboard",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "https://finance-backend-gi5m.onrender.com/api/dashboard",
+                  "protocol": "https",
+                  "host": [
+                    "finance-backend-gi5m",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "dashboard"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 04 Apr 2026 16:51:47 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "334"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"345-lunD4Qk2r0KzRS4bi5tE13UylWQ\""
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "eed2bd78-3752-4211"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "9e71d1d78be2f4e2-IAD"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"totalIncome\": 11000,\n    \"totalExpense\": 0,\n    \"netBalance\": 11000,\n    \"categoryWise\": [\n        {\n            \"_id\": {\n                \"category\": \"salary\",\n                \"type\": \"income\"\n            },\n            \"total\": 5000\n        },\n        {\n            \"_id\": {\n                \"category\": \"freelance\",\n                \"type\": \"income\"\n            },\n            \"total\": 6000\n        }\n    ],\n    \"recentTransactions\": [\n        {\n            \"_id\": \"69d140682a1229c6d584c4d1\",\n            \"amount\": 6000,\n            \"type\": \"income\",\n            \"category\": \"freelance\",\n            \"date\": \"2026-04-04T16:46:32.912Z\",\n            \"note\": \"one time salary\",\n            \"createdBy\": \"69cfc814a970b3bfb30e0ed8\",\n            \"createdAt\": \"2026-04-04T16:46:32.913Z\",\n            \"updatedAt\": \"2026-04-04T16:47:57.235Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"69d0906dd8114a17238f8b5c\",\n            \"amount\": 5000,\n            \"type\": \"income\",\n            \"category\": \"salary\",\n            \"date\": \"2026-04-04T04:15:41.234Z\",\n            \"note\": \"Monthly salary\",\n            \"createdBy\": \"69cfc814a970b3bfb30e0ed8\",\n            \"createdAt\": \"2026-04-04T04:15:41.238Z\",\n            \"updatedAt\": \"2026-04-04T04:15:41.238Z\",\n            \"__v\": 0\n        }\n    ],\n    \"monthlyTrend\": [\n        {\n            \"_id\": {\n                \"year\": 2026,\n                \"month\": 4,\n                \"type\": \"income\"\n            },\n            \"total\": 11000\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Dashboard for Viewer",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDEzZDZkMmExMjI5YzZkNTg0YzRjNCIsInJvbGUiOiJ2aWV3ZXIiLCJpYXQiOjE3NzUzMjIzNDAsImV4cCI6MTc3NTkyNzE0MH0.FP1wNucXy7h9Wp5WXMmQ8nXKcL_GOV2zF6VNPF_fqlU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{  \"email\": \"viewer@test.com\",\r\n  \"password\": \"123456\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://finance-backend-gi5m.onrender.com/api/dashboard",
+              "protocol": "https",
+              "host": [
+                "finance-backend-gi5m",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "dashboard"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Dashboard for Viewer",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{  \"email\": \"viewer@test.com\",\r\n  \"password\": \"123456\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-backend-gi5m.onrender.com/api/dashboard",
+                  "protocol": "https",
+                  "host": [
+                    "finance-backend-gi5m",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "dashboard"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 04 Apr 2026 17:06:08 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "120"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"c3-4obPd2Y8o0lTI56k+RWPsHirWt8\""
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "12d49165-5641-4127"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "9e71e6dfedc0d64c-IAD"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"totalIncome\": 11000,\n    \"totalExpense\": 0,\n    \"netBalance\": 11000,\n    \"categoryWise\": [\n        {\n            \"_id\": {\n                \"category\": \"salary\",\n                \"type\": \"income\"\n            },\n            \"total\": 5000\n        },\n        {\n            \"_id\": {\n                \"category\": \"freelance\",\n                \"type\": \"income\"\n            },\n            \"total\": 6000\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
